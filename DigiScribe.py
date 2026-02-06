@@ -35,10 +35,15 @@ def extract_text(file_param):
     word_list = []
     confidence_list = []
 
+    average_confidence = 0
+
     for (bbox, word, confidence) in text:
         bbox_list.append(bbox)
         word_list.append(word)
         confidence_list.append(float(confidence))
+        average_confidence += float(confidence)
+
+    average_confidence /= len(confidence_list)
 
     annotated_text = ""
 
@@ -55,7 +60,7 @@ def extract_text(file_param):
         )
     )
 
-    return simple_text, response.text, annotated_text
+    return simple_text, response.text, annotated_text, average_confidence
 
 
 st.title("***Digi:blue[Scribe]***")
@@ -81,7 +86,7 @@ if st.session_state["uploaded"]:
     text = "" 
     extra_details = ""
     with st.spinner("Extracting...", show_time = True):
-        text, refined_text, extra_details = extract_text(FILE)
+        text, refined_text, extra_details, avg = extract_text(FILE)
 
 
 extracted, refined, img = st.tabs(["Initially Extracted Text","Refined Text", "Image"])
@@ -112,6 +117,7 @@ with img:
 if st.session_state["uploaded"]:
     st.divider()
     with st.expander("Extra Data/Stats:"):
+        st.write(f"***Average Confidence:*** {avg}")
         st.write(extra_details)
 
 
@@ -119,10 +125,7 @@ if st.session_state["uploaded"]:
 
 # TODO: Add confidence based threshold selection ---> Add contrast parameter and regularization parameters
 # TODO: Add batch processing multiple images
-# TODO: Move API Key to secrets.toml file and add into .gitignore
-# TODO: Make github repo and add folder
 # TODO: Add settings popover for allowlist, numbers, extra topic content for notes for the AI etc.
-
 
 
 ##### Later #####
