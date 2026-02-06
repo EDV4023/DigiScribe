@@ -68,9 +68,14 @@ st.title("***Digi:blue[Scribe]***")
 upload, cam = st.columns([0.5,0.5])
 
 with upload:
-    FILE = st.file_uploader(label = "Upload an Image for Conversion (PNG, JPG, JPEG)", type = ["jpg", "jpeg", "png"])  # r"Handwriting Recognition\Images_Examples\aTfamilymovingsentence.png"
+    uploaded_file = st.file_uploader(label = "Upload an Image for Conversion (PNG, JPG, JPEG)", type = ["jpg", "jpeg", "png"])  # r"Handwriting Recognition\Images_Examples\aTfamilymovingsentence.png"
 with cam:
-    FILE = st.camera_input("Take a picture", )
+    captured_file = st.camera_input("Take a picture", )
+
+if uploaded_file == None and captured_file != None:
+    FILE = captured_file
+elif captured_file == None and uploaded_file != None:
+    FILE = uploaded_file
 
 if FILE != None:
     st.session_state["uploaded"] = True
