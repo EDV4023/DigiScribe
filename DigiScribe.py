@@ -76,6 +76,8 @@ if uploaded_file == None and captured_file != None:
     FILE = captured_file
 elif captured_file == None and uploaded_file != None:
     FILE = uploaded_file
+else:
+    FILE = None
 
 if FILE != None:
     st.session_state["uploaded"] = True
