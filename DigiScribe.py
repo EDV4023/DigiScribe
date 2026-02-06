@@ -6,7 +6,7 @@ import streamlit as st
 from google import genai
 from google.genai import types
 import numpy as np
-import pyperclip
+# import pyperclip
 
 
 handwriting_reader = easyocr.Reader(['en'], gpu = False, verbose=True)

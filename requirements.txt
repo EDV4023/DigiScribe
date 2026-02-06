@@ -1,0 +1,7 @@
+streamlit
+easyocr
+torch
+torchvision
+opencv-python-headless
+numpy
+google-genai
