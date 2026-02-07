@@ -131,10 +131,12 @@ if st.session_state["uploaded"]:
 
 
 # TODO: Add confidence based threshold selection ---> Add contrast parameter and regularization parameters
-# TODO: Add batch processing multiple images
 # TODO: Add settings popover for allowlist, numbers, extra topic content for notes for the AI etc.
+# TODO: Segment text before recognition
 
 
 ##### Later #####
 # TODO: Change font to Indie Flower from google fonts by using tutorial: https://docs.streamlit.io/develop/tutorials/configuration-and-theming/external-fonts 
 # TODO: Make third tab with Image with Bounded Box of words
+# TODO: Improve speed with pytorch threads
+# TODO: Add batch processing multiple images
