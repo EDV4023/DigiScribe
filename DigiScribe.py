@@ -1,15 +1,47 @@
 import easyocr 
 import os
 import cv2
-import numpy
 import streamlit as st
 from google import genai
 from google.genai import types
 import numpy as np
+from transformers import TrOCRProcessor, VisionEncoderDecoderModel
+from PIL import Image
+import torch
 # import pyperclip
 
 
 handwriting_reader = easyocr.Reader(['en'], gpu = False, verbose=True)
+processor = TrOCRProcessor.from_pretrained('microsoft/trocr-small-handwritten')
+model = VisionEncoderDecoderModel.from_pretrained('microsoft/trocr-small-handwritten')
+
+def recognize(image):
+    # Read bytes from Streamlit file
+    file_bytes = np.frombuffer(image.read(), np.uint8)
+    # Decode into OpenCV image
+    image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+
+    # Sharpen edges in image to enhance accuracy:
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Turn image into grayscale
+    sharpener = numpy.array([[-1,-1,-1],[-1,9,-1],[-1,-1,-1]]) # Define Filter Kernel
+    sharpen = cv2.filter2D(gray, -1, sharpener) # Apply Filter Kernel
+    thresh = cv2.threshold(sharpen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+
+    pixel_values = processor(images=thresh, return_tensors="pt").pixel_values
+    outputs = model.generate(pixel_values, return_dict_in_generate=True, output_scores=True, num_beams=5)
+    generated_text = processor.batch_decode(outputs.sequences, skip_special_tokens=True)[0]
+    confidence = torch.exp(outputs.sequences_scores).item()
+
+    response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents = f"This text was taken out of an OCR software. Refine the words, phrases, or sentences that are nonsensical so that the final text is intelligible. Only output the final, refined text. Add punctuation accordingly. Here is the input text: {generated_text}",
+    config = types.GenerateContentConfig(
+        temperature = 0.1 # Using a Lower temperature since the task does not necessitate variety 
+        )
+        )
+
+    return generated_text, response.text, confidence
+
 client = genai.Client(api_key = st.secrets["API_KEY"])
 
 st.session_state["uploaded"] = False
@@ -69,6 +101,9 @@ upload, cam = st.columns([0.5,0.5])
 
 with upload:
     uploaded_file = st.file_uploader(label = "Upload an Image for Conversion (PNG, JPG, JPEG)", type = ["jpg", "jpeg", "png"])  # r"Handwriting Recognition\Images_Examples\aTfamilymovingsentence.png"
+    with st.container(border = True, height = 90):
+        MODE = st.pills("**Mode:**", options = ["Lite", "Performance"], selection_mode = "single")
+
 with cam:
     captured_file = st.camera_input("Take a picture", )
 
@@ -93,7 +128,10 @@ if st.session_state["uploaded"]:
     text = "" 
     extra_details = ""
     with st.spinner("Extracting...", show_time = True):
-        text, refined_text, extra_details, avg = extract_text(FILE)
+        if MODE == "Lite":
+            text, refined_text, extra_details, avg = extract_text(FILE)
+        elif MODE == "Performance":
+            text, refined_text, avg = recognize(FILE)
 
 
 extracted, refined, img = st.tabs(["Initially Extracted Text","Refined Text", "Image"])
@@ -125,7 +163,8 @@ if st.session_state["uploaded"]:
     st.divider()
     with st.expander("Extra Data/Stats:"):
         st.write(f"***Average Confidence:*** {avg}")
-        st.write(extra_details)
+        if MODE == "Lite":
+            st.write(extra_details)
 
 
 
