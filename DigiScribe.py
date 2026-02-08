@@ -1,13 +1,12 @@
 import easyocr 
-import os
 import cv2
 import streamlit as st
 from google import genai
 from google.genai import types
 import numpy as np
-from PIL import Image
-import time
 # import pyperclip
+# from PIL import Image
+# import os
 
 if "MODE" not in st.session_state:
     st.session_state.MODE = "Lite"
@@ -15,10 +14,17 @@ if "MODE" not in st.session_state:
     st.session_state.context_sentence = ""
     st.session_state.allowlist = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?$ "
 
-handwriting_reader = easyocr.Reader(['en'], gpu = False, verbose=True)
+
+@st.cache_resource
+def load_easyocr():
+    return easyocr.Reader(['en'], gpu = False, verbose=True)
+handwriting_reader = load_easyocr()
+
+
 client = genai.Client(api_key = st.secrets["API_KEY"])
 if "uploaded" not in st.session_state:  
     st.session_state["uploaded"] = False
+
 
 @st.dialog("**Configurations**", on_dismiss = "rerun")
 def configurations():
@@ -48,9 +54,8 @@ def configurations():
 
 
 
-
+@st.cache_data
 def recognize(image):
-    time.sleep(2)
 
     image.seek(0)
     image_bytes = image.read()
@@ -83,7 +88,7 @@ def recognize(image):
 
     return vision_text, response.text
 
-
+@st.cache_data
 def extract_text(file_param):
     # Read bytes from Streamlit file
     file_bytes = np.frombuffer(file_param.read(), np.uint8)
@@ -212,7 +217,7 @@ if st.session_state["uploaded"] and st.session_state.MODE == "Lite":
     with st.expander("Extra Data/Stats:"):
         st.write(f"***Average Confidence:*** {avg}")
         st.write(extra_details)
-        st.write("***Configurations***")
+        st.write("***Configurations:***")
         st.write(st.session_state.context_sentence)
         st.write("Allowed characters: [space]" + st.session_state.allowlist)
 
@@ -220,7 +225,6 @@ if st.session_state["uploaded"] and st.session_state.MODE == "Lite":
 
 
 # TODO: Add confidence based threshold selection ---> Add contrast parameter and regularization parameters
-# TODO: Add settings popover for allowlist, numbers, extra topic content for notes for the AI etc.
 # TODO: Segment text before recognition
 
 
