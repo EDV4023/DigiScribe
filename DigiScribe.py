@@ -250,7 +250,7 @@ if st.session_state["uploaded"] and st.session_state.MODE == "Lite":
         st.write(st.session_state.context_sentence)
 
 with st.container(horizontal_alignment = "right"):
-    st.page_link("DigiScribe\TextEditor.py", icon = ":material/edit:")
+    st.page_link(r"DigiScribe\TextEditor.py", icon = ":material/edit:")
 
 
 # TODO: Turn text, refined_text, extra_details and avg into streamlit session_state vars
