@@ -9,7 +9,7 @@ from PIL import Image
 import PIL
 # import os
 
-st.set_page_config(page_title = "DigiScribe", layout = "wide")
+st.set_page_config(page_title = "DigiScribe")
 
 if "MODE" not in st.session_state:
     st.session_state.MODE = "Lite"
@@ -185,18 +185,9 @@ with st.container(border = True):
 
     with upload:
         uploaded_file = st.file_uploader(label = "**Upload an Image for Conversion (PNG, JPG, JPEG)**", type = ["jpg", "jpeg", "png"])  # r"Handwriting Recognition\Images_Examples\aTfamilymovingsentence.png"
-        st.space(200)
+        st.space(80)
     with cam:
         captured_file = st.camera_input("**Take a picture**")
-        st.markdown("""
-        <style>
-        .block-container {
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-
 
 if uploaded_file == None and captured_file != None:
     FILE = captured_file
