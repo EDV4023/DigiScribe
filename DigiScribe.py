@@ -91,7 +91,7 @@ def recognize(image):
     try:
         response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents = f"This text was taken out of an OCR software. Refine the words, phrases, or sentences that are nonsensical so that the final text is intelligible. Do not change the order of the original characters after refinement. First fix spelling issues then move onto grammar issues. Only output the final, refined text. Add punctuation accordingly. {st.session_state.context_sentence} Here is the input text: {vision_text}",
+        contents = f"This text was taken out of an OCR software. Refine the words, phrases, or sentences that are nonsensical so that the final text is intelligible. Do not change the order of the original characters after refinement. First fix spelling issues then move onto grammar issues. Only output the final, refined text. Add punctuation accordingly. {st.session_state.context_sentence} Here is the input text: {vision_text.text}. Reccomended List of Characters {st.session_state.allowlist}",
         config = types.GenerateContentConfig(
             temperature = 0.1 # Using a Lower temperature since the task does not necessitate variety 
             )
