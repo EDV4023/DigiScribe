@@ -5,7 +5,8 @@ from google import genai
 from google.genai import types
 import numpy as np
 # import pyperclip
-# from PIL import Image
+from PIL import Image
+import PIL
 # import os
 
 if "MODE" not in st.session_state:
@@ -55,8 +56,6 @@ def configurations():
     
 
 def resize(image):
-    file_bytes = np.asarray(bytearray(image.read()), dtype=np.uint8)
-    image = cv2.imdecode(file_bytes, 1)
     max_side = 1200
     height, width = image.shape[0:2]
     scale = max_side / max(height, width)
@@ -67,16 +66,15 @@ def resize(image):
     
 
 
-
-
 def recognize(image):
     image.seek(0)
 
-    image_bytes = np.asarray(bytearray(image.read()), dtype=np.uint8)
-    image = cv2.imdecode(image_bytes, cv2.IMREAD_COLOR)
+    image_bytes = image.getvalue()
+    image = np.frombuffer(image_bytes, np.uint8)
+    image = cv2.imdecode(image, cv2.IMREAD_COLOR)
 
     image = resize(image)
-    
+
     try:
         vision_text = client.models.generate_content(
             model = "gemini-2.0-flash",
