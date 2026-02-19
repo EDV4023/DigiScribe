@@ -188,6 +188,14 @@ with st.container(border = True):
         st.space(200)
     with cam:
         captured_file = st.camera_input("**Take a picture**")
+        st.markdown("""
+        <style>
+        .block-container {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
 
 if uploaded_file == None and captured_file != None:
