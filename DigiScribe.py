@@ -11,6 +11,10 @@ import PIL
 
 st.set_page_config(page_title = "DigiScribe")
 
+pages = st.navigation([
+    st.Page("DigiScribe.py", title = "DigiScribe"), 
+    st.Page("TextEditor.py", title = "DigiScribe - Text Editor")])
+
 if "MODE" not in st.session_state:
     st.session_state.MODE = "Lite"
     st.session_state.context = ""
@@ -250,7 +254,7 @@ if st.session_state["uploaded"] and st.session_state.MODE == "Lite":
         st.write(st.session_state.context_sentence)
 
 with st.container(horizontal_alignment = "right"):
-    st.page_link(r"DigiScribe/TextEditor.py", icon = ":material/edit:")
+    st.page_link(r"TextEditor.py", icon = ":material/edit:")
 
 
 # TODO: Turn text, refined_text, extra_details and avg into streamlit session_state vars
