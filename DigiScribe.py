@@ -180,13 +180,14 @@ elif st.session_state.MODE == "Performance":
 
 config.button("", icon = ":material/settings:", on_click = configurations)
 
-upload, cam = st.columns([0.5,0.5])
+with st.container(border = True):
+    upload, cam = st.columns([0.5,0.5])
 
-with upload:
-    uploaded_file = st.file_uploader(label = "**Upload an Image for Conversion (PNG, JPG, JPEG)**", type = ["jpg", "jpeg", "png"])  # r"Handwriting Recognition\Images_Examples\aTfamilymovingsentence.png"
-    st.write("\n")
-with cam:
-    captured_file = st.camera_input("**Take a picture**")
+    with upload:
+        uploaded_file = st.file_uploader(label = "**Upload an Image for Conversion (PNG, JPG, JPEG)**", type = ["jpg", "jpeg", "png"])  # r"Handwriting Recognition\Images_Examples\aTfamilymovingsentence.png"
+        st.write("\n")
+    with cam:
+        captured_file = st.camera_input("**Take a picture**")
 
 
 if uploaded_file == None and captured_file != None:
@@ -206,7 +207,7 @@ elif FILE == None:
 #     text = "" 
 #     extra_details = ""
 
-if upload.button("Extract", width = "stretch", type = "primary"):
+if st.button("Extract", width = "stretch", type = "primary"):
     if st.session_state.MODE == "Lite":
         st.session_state.text, st.session_state.refined_text, st.session_state.extra_details, st.session_state.avg = perform_extraction()
     else:
@@ -216,7 +217,7 @@ if upload.button("Extract", width = "stretch", type = "primary"):
 extracted, refined, img = st.tabs(["Initially Extracted Text","Refined Text", "Image"])
 
 with extracted:
-    ex_cont = st.container(height = 150, key = "extc")
+    ex_cont = st.container(height = 200, key = "extc")
     ex_cont.write(st.session_state.text)
     # extracted_copy, extracted_download = st.columns([0.05,0.95])
     # with extracted_copy:
@@ -226,7 +227,7 @@ with extracted:
     st.download_button("Download Extracted Text", data = st.session_state.text, file_name = "digi_scribe_extracted_text.txt", icon=":material/download:", on_click = "ignore")
 
 with refined:
-    ref_cont = st.container(height = 150, key = "refc")
+    ref_cont = st.container(height = 200, key = "refc")
     ref_cont.write(st.session_state.refined_text)
     # refined_copy, refined_download = st.columns([0.05,0.95])
     # with refined_copy:
