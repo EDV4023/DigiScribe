@@ -207,7 +207,7 @@ elif FILE == None:
 #     text = "" 
 #     extra_details = ""
 
-if st.button("Extract", width = "stretch", type = "primary", width = 100):
+if st.button("Extract", width = 100, type = "primary"):
     if st.session_state.MODE == "Lite":
         st.session_state.text, st.session_state.refined_text, st.session_state.extra_details, st.session_state.avg = perform_extraction()
     else:
