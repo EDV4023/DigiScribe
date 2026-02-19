@@ -9,3 +9,6 @@ secondaryBackgroundColor="#efd576"
 textColor="#1a528e"
 font = "Indie Flower:https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap, sans-serif"
 baseFontSize = 18
+
+[client]
+showSidebarNavigation = false
