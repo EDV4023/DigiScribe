@@ -93,7 +93,7 @@ def recognize(image):
     try:
         response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents = f"This text was taken out of an OCR software. Refine the words, phrases, or sentences that are nonsensical so that the final text is intelligible. Do not change the order of the original characters after refinement. First fix spelling issues then move onto grammar issues. Only output the final, refined text. Add punctuation accordingly. {st.session_state.context_sentence} Here is the input text: {vision_text.text}. Reccomended List of Characters {st.session_state.allowlist}",
+        contents = f"This text was taken out of an OCR software. Refine the words, phrases, or sentences that are nonsensical so that the final text is intelligible. Do not change the order of the original characters after refinement. First fix spelling issues then move onto grammar issues. Only output the final, refined text. Add punctuation accordingly. {st.session_state.context_sentence} Here is the input text: {vision_text.text}. Reccomended List of Characters {st.session_state.allowlist}. Put ** (Double Asterisks) around words, sentences or phrases that you are unsure/unconfident on.",
         config = types.GenerateContentConfig(
             temperature = 0.1 # Using a Lower temperature since the task does not necessitate variety 
             )
@@ -147,7 +147,7 @@ def extract_text(file_param):
     try: 
         response = client.models.generate_content(
             model="gemini-2.0-flash",
-            contents = f"This text was taken out of an OCR software. Refine the words, phrases, or sentences that are nonsensical so that the final text is intelligible. Do not change the order of the original characters after refinement. First fix spelling issues then move onto grammar issues. Only output the final, refined text. Add punctuation accordingly. The confidence scores from the OCR model are also given, for high confidence segments avoid changing it unless there are clarity/spelling/context issues. {st.session_state.context_sentence} Here is the input text: {annotated_text}",
+            contents = f"This text was taken out of an OCR software. Refine the words, phrases, or sentences that are nonsensical so that the final text is intelligible. Do not change the order of the original characters after refinement. First fix spelling issues then move onto grammar issues. Only output the final, refined text. Add punctuation accordingly. The confidence scores from the OCR model are also given, for high confidence segments avoid changing it unless there are clarity/spelling/context issues. {st.session_state.context_sentence} Here is the input text: {annotated_text}. Put ** (Double Asterisks) around words, sentences or phrases that the OCR had below 0.50 in confidence.",
             config = types.GenerateContentConfig(
                 temperature = 0.1 # Using a Lower temperature since the task does not necessitate variety 
             )
@@ -249,6 +249,8 @@ if st.session_state["uploaded"] and st.session_state.MODE == "Lite":
         st.write("**Allowed characters:** [space]" + st.session_state.allowlist)
         st.write(st.session_state.context_sentence)
 
+with st.container(horizontal_alignment = "right"):
+    st.page_link("DigiScribe\TextEditor.py", icon = ":material/edit:")
 
 
 # TODO: Turn text, refined_text, extra_details and avg into streamlit session_state vars
@@ -260,7 +262,7 @@ if st.session_state["uploaded"] and st.session_state.MODE == "Lite":
 # TODO: Add batch processing multiple images
 # TODO: Add text to speech capabilities
 # TODO: Add AI summaries of text/notes
-# TODO: Create DigiScribe Student mode with AI summaries and  
+# TODO: Create DigiScribe Student mode with AI summaries and quizes and different note-taking methods like cornell notes 
 
 
 
