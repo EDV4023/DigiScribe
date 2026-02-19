@@ -9,6 +9,8 @@ from PIL import Image
 import PIL
 # import os
 
+st.set_page_config(page_title = "DigiScribe", layout = "wide")
+
 if "MODE" not in st.session_state:
     st.session_state.MODE = "Lite"
     st.session_state.context = ""
