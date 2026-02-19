@@ -54,13 +54,21 @@ def configurations():
 
     
 
+def resize(image):
+    max_side = 1200
+    height, width = image.shape[0:2]
+    scale = max_side / max(height, width)
 
+    if scale < 1:
+        image = cv2.resize(image, (int(scale*width),int(scale*height)))
+    return image
+    
 
 
 
 
 def recognize(image):
-
+    image = resize(image)
     image.seek(0)
     image_bytes = image.read()
     try:
@@ -243,12 +251,15 @@ if st.session_state["uploaded"] and st.session_state.MODE == "Lite":
 # TODO: Add warning to refrain from uploading personal details on DigiScribe
 # TODO: Add a text editor section where low confidence words/phrases/sentences are bolded and the user can edit them and then download
 # TODO: Add easyOCR model files to fix bug
+# TODO: Add batch processing multiple images
+# TODO: Add text to speech capabilities
+# TODO: Add AI summaries of text/notes
+# TODO: Create DigiScribe Student mode with AI summaries and  
 
 
 
 #---------- Later ----------#
 # TODO: Make third tab with Image with Bounded Box of words
 # TODO: Improve speed with pytorch threads
-# TODO: Add batch processing multiple images
 # TODO: Add more languages
 # TODO: Add more download formats
