@@ -9,7 +9,7 @@ from PIL import Image
 import PIL
 # import os
 
-st.set_page_config(page_title = "DigiScribe")
+st.set_page_config(page_title = "DigiScribe - Text Editor")
 
 @st.dialog("**Configurations**", on_dismiss = "rerun")
 def configurations():
