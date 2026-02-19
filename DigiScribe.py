@@ -70,9 +70,13 @@ def resize(image):
 
 
 def recognize(image):
-    image = resize(image)
     image.seek(0)
-    image_bytes = image.read()
+
+    image_bytes = np.asarray(bytearray(image.read()), dtype=np.uint8)
+    image = cv2.imdecode(image_bytes, cv2.IMREAD_COLOR)
+
+    image = resize(image)
+    
     try:
         vision_text = client.models.generate_content(
             model = "gemini-2.0-flash",
