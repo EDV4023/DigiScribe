@@ -55,6 +55,8 @@ def configurations():
     
 
 def resize(image):
+    file_bytes = np.asarray(bytearray(image.read()), dtype=np.uint8)
+    image = cv2.imdecode(file_bytes, 1)
     max_side = 1200
     height, width = image.shape[0:2]
     scale = max_side / max(height, width)
