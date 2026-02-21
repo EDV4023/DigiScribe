@@ -23,6 +23,7 @@ if "MODE" not in st.session_state:
     st.session_state.refined_text = ""
     st.session_state.extra_detail = ""
     st.session_state.avg = 0.0
+    st.session_state.uploaded = False
 
 
 @st.dialog("**Configurations**", on_dismiss = "rerun")

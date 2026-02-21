@@ -20,8 +20,7 @@ if "MODE" not in st.session_state:
     st.session_state.refined_text = ""
     st.session_state.extra_detail = ""
     st.session_state.avg = 0.0
-
-st.warning("Please refrain from uploading personal or private information into DigiScribe.")
+    st.session_state.uploaded = False
 
 @st.cache_resource
 def load_easyocr():
@@ -180,6 +179,9 @@ elif st.session_state.MODE == "Performance":
     title.title("**:blue[Digi]:blue[Scribe]**   :red[  Performance]")
 
 config.button("", icon = ":material/settings:", on_click = configurations)
+
+if not st.session_state.uploaded:
+    st.warning("Please refrain from uploading personal or private information into DigiScribe.")
 
 with st.container(border = True):
     upload, cam = st.columns([0.5,0.5])
