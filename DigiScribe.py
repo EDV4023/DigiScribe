@@ -7,6 +7,7 @@ import numpy as np
 # import pyperclip
 from PIL import Image
 import PIL
+import time
 # import os
 
 st.set_page_config(page_title = "DigiScribe")
@@ -179,8 +180,10 @@ elif st.session_state.MODE == "Performance":
 
 config.button("", icon = ":material/settings:", on_click = configurations)
 
-if not st.session_state.uploaded:
+with st.empty():
     st.warning("Please refrain from uploading personal or private information into DigiScribe.")
+    time.sleep(5)
+    st.space(0)
 
 with st.container(border = True, key = "image_input_cont"):
     upload, cam = st.columns([0.5,0.5])
