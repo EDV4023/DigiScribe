@@ -12,6 +12,8 @@ import time
 
 st.set_page_config(page_title = "DigiScribe")
 
+st.session_state.initial_run = False
+
 if "MODE" not in st.session_state:
     st.session_state.MODE = "Lite"
     st.session_state.context = ""
@@ -21,6 +23,7 @@ if "MODE" not in st.session_state:
     st.session_state.refined_text = ""
     st.session_state.extra_detail = ""
     st.session_state.avg = 0.0
+    st.session_state.initial_run = True
 
 @st.cache_resource
 def load_easyocr():
@@ -180,7 +183,7 @@ elif st.session_state.MODE == "Performance":
 
 config.button("", icon = ":material/settings:", on_click = configurations)
 
-if st.session_state.uploaded != True:
+if st.session_state.initial_run:
     with st.empty():
         st.warning("Please refrain from uploading personal or private information into DigiScribe.")
         time.sleep(3)
