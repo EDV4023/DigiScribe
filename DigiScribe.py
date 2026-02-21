@@ -21,6 +21,7 @@ if "MODE" not in st.session_state:
     st.session_state.extra_detail = ""
     st.session_state.avg = 0.0
 
+st.warning("Please refrain from uploading personal or private information into DigiScribe.")
 
 @st.cache_resource
 def load_easyocr():
@@ -228,6 +229,7 @@ with extracted:
 with refined:
     ref_cont = st.container(height = 200, key = "refc")
     ref_cont.write(st.session_state.refined_text)
+    st.caption("Bolded text represents segments where the model was unsure of.")
     # refined_copy, refined_download = st.columns([0.05,0.95])
     # with refined_copy:
     #     if st.button(label = "", icon=":material/content_copy:", type = "tertiary", key = 'rc'):
@@ -252,10 +254,7 @@ if st.session_state["uploaded"] and st.session_state.MODE == "Lite":
 with st.container(horizontal_alignment = "right"):
     st.page_link(page = r"pages/TextEditor.py", icon = ":material/edit:", label = "Text Editor") # Use forward slash instead of backslash for page directories
 
-# TODO: Try .pages directory approach
-# TODO: Turn text, refined_text, extra_details and avg into streamlit session_state vars
-# TODO: Add confidence based threshold selection ---> Add contrast parameter and regularization parameters
-# TODO: Segment text before recognition
+
 # TODO: Add warning to refrain from uploading personal details on DigiScribe
 # TODO: Add a text editor section where low confidence words/phrases/sentences are bolded and the user can edit them and then download
 # TODO: Add easyOCR model files to fix bug
@@ -265,9 +264,10 @@ with st.container(horizontal_alignment = "right"):
 # TODO: Create DigiScribe Student mode with AI summaries and quizes and different note-taking methods like cornell notes 
 
 
-
 #---------- Later ----------#
 # TODO: Make third tab with Image with Bounded Box of words
 # TODO: Improve speed with pytorch threads
 # TODO: Add more languages
 # TODO: Add more download formats
+# TODO: Segment text before recognition
+# TODO: Add confidence based threshold selection ---> Add contrast parameter and regularization parameters

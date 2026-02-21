@@ -59,7 +59,8 @@ config.button("", icon = ":material/settings:", on_click = configurations)
 
 with st.container(border = True):
     st.markdown(st.session_state.refined_text)
+    st.caption("Bolded text represents segments where the model was unsure of.")
 
-content = st_quill(value = st.session_state.refined_text, html = True)
+content = st_quill(value = st.session_state.refined_text.replace("*", ""), html = True)
 markdown_text = markdownify.markdownify(content)
 
