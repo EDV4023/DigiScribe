@@ -7,6 +7,8 @@ import numpy as np
 # import pyperclip
 from PIL import Image
 import PIL
+import markdownify
+from streamlit_quill import st_quill
 # import os
 
 st.set_page_config(page_title = "DigiScribe - Text Editor")
@@ -45,3 +47,7 @@ config.button("", icon = ":material/settings:", on_click = configurations)
 
 with st.container(border = True):
     st.text(st.session_state.refined_text)
+
+content = st_quill(value = st.session_state.refined_text, html = True)
+markdown_text = markdownify.markdownify(content)
+

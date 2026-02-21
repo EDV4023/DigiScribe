@@ -250,7 +250,7 @@ if st.session_state["uploaded"] and st.session_state.MODE == "Lite":
         st.write(st.session_state.context_sentence)
 
 with st.container(horizontal_alignment = "right"):
-    st.page_link(page = r"pages/TextEditor.py", icon = ":material/edit:")
+    st.page_link(page = r"pages/TextEditor.py", icon = ":material/edit:", label = "Text Editor") # Use forward slash instead of backslash for page directories
 
 # TODO: Try .pages directory approach
 # TODO: Turn text, refined_text, extra_details and avg into streamlit session_state vars

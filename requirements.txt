@@ -6,3 +6,4 @@ opencv-python-headless
 numpy
 google-genai
 pillow
+markdownify
