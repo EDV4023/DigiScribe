@@ -13,6 +13,18 @@ from streamlit_quill import st_quill
 
 st.set_page_config(page_title = "DigiScribe - Text Editor")
 
+# Initialize session states
+if "MODE" not in st.session_state:
+    st.session_state.MODE = "Lite"
+    st.session_state.context = ""
+    st.session_state.context_sentence = ""
+    st.session_state.allowlist = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?$ "
+    st.session_state.text = ""
+    st.session_state.refined_text = ""
+    st.session_state.extra_detail = ""
+    st.session_state.avg = 0.0
+
+
 @st.dialog("**Configurations**", on_dismiss = "rerun")
 def configurations():
     st.pills("**Mode:**", options = ["Lite", "Performance"], selection_mode = "single", key = "MODE_input")
@@ -46,7 +58,7 @@ config.button("", icon = ":material/settings:", on_click = configurations)
 
 
 with st.container(border = True):
-    st.text(st.session_state.refined_text)
+    st.markdown(st.session_state.refined_text)
 
 content = st_quill(value = st.session_state.refined_text, html = True)
 markdown_text = markdownify.markdownify(content)

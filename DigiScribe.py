@@ -147,7 +147,7 @@ def extract_text(file_param):
     try: 
         response = client.models.generate_content(
             model="gemini-2.0-flash",
-            contents = f"This text was taken out of an OCR software. Refine the words, phrases, or sentences that are nonsensical so that the final text is intelligible. Do not change the order of the original characters after refinement. First fix spelling issues then move onto grammar issues. Only output the final, refined text. Add punctuation accordingly. The confidence scores from the OCR model are also given, for high confidence segments avoid changing it unless there are clarity/spelling/context issues. {st.session_state.context_sentence}  Put ** (Double Asterisks) around words, sentences or phrases that the OCR had below 0.50 in confidence. Here is the input text: {annotated_text}.",
+            contents = f"This text was taken out of an OCR software. Refine the words, phrases, or sentences that are nonsensical so that the final text is intelligible. Do not change the order of the original characters after refinement. First fix spelling issues then move onto grammar issues. Only output the final, refined text. Add punctuation accordingly. The confidence scores from the OCR model are also given, for high confidence segments avoid changing it unless there are clarity/spelling/context issues. {st.session_state.context_sentence}  Put ** (Double Asterisks) around text segments that the OCR had below 0.50 in confidence. Here is the input text: {annotated_text}.",
             config = types.GenerateContentConfig(
                 temperature = 0.1 # Using a Lower temperature since the task does not necessitate variety 
             )
