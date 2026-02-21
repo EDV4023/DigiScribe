@@ -186,7 +186,7 @@ config.button("", icon = ":material/settings:", on_click = configurations)
 if st.session_state.initial_run:
     with st.empty():
         st.warning("Please refrain from uploading personal or private information into DigiScribe.")
-        time.sleep(3)
+        time.sleep(2)
         st.space(1)
 
 with st.container(border = True, key = "image_input_cont"):
