@@ -180,10 +180,11 @@ elif st.session_state.MODE == "Performance":
 
 config.button("", icon = ":material/settings:", on_click = configurations)
 
-with st.empty():
-    st.warning("Please refrain from uploading personal or private information into DigiScribe.")
-    time.sleep(3)
-    st.space(1)
+if st.session_state.uploaded != True:
+    with st.empty():
+        st.warning("Please refrain from uploading personal or private information into DigiScribe.")
+        time.sleep(3)
+        st.space(1)
 
 with st.container(border = True, key = "image_input_cont"):
     upload, cam = st.columns([0.5,0.5])
