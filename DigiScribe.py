@@ -20,7 +20,6 @@ if "MODE" not in st.session_state:
     st.session_state.refined_text = ""
     st.session_state.extra_detail = ""
     st.session_state.avg = 0.0
-    st.session_state.uploaded = False
 
 @st.cache_resource
 def load_easyocr():
@@ -183,14 +182,14 @@ config.button("", icon = ":material/settings:", on_click = configurations)
 if not st.session_state.uploaded:
     st.warning("Please refrain from uploading personal or private information into DigiScribe.")
 
-with st.container(border = True):
+with st.container(border = True, key = "image_input_cont"):
     upload, cam = st.columns([0.5,0.5])
 
     with upload:
-        uploaded_file = st.file_uploader(label = "**Upload an Image for Conversion (PNG, JPG, JPEG)**", type = ["jpg", "jpeg", "png"])  # r"Handwriting Recognition\Images_Examples\aTfamilymovingsentence.png"
+        uploaded_file = st.file_uploader(label = "**Upload an Image for Conversion (PNG, JPG, JPEG)**", type = ["jpg", "jpeg", "png"], key = "file_uploader")  # r"Handwriting Recognition\Images_Examples\aTfamilymovingsentence.png"
         st.space(10)
     with cam:
-        captured_file = st.camera_input("**Take a picture**")
+        captured_file = st.camera_input("**Take a picture**", key = "camera_input")
 
 if uploaded_file == None and captured_file != None:
     FILE = captured_file
