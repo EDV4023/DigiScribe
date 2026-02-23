@@ -11,7 +11,7 @@ import time
 # import os
 
 st.set_page_config(page_title = "DigiScribe")
-st.logo(image = r"DigiScribe_Logo.png", icon_image = r"DigiScribe_logo_icon.png")
+st.logo(image = r"DigiScribe_Logo.png", icon_image = r"DigiScribe_logo_icon.png", size = "large")
 
 # Sidebar customized menu
 st.sidebar.markdown("**Extract Text from Images:**")
