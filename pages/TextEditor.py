@@ -28,3 +28,9 @@ with st.container(border = True):
 
 content = st_quill(value = st.session_state.refined_text.replace("*", ""), html = True)
 markdown_text = markdownify.markdownify(content)
+
+with open("digiscribe_md.txt", "w") as f:
+        f.write(markdown_text)
+
+download_md = st.download_button("Download as Markdown", data = r"digiscribe_md.txt")
+
