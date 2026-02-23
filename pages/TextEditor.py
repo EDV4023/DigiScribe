@@ -32,5 +32,8 @@ markdown_text = markdownify.markdownify(content)
 with open("digiscribe_md.md", "w") as f:
         f.write(markdown_text)
 
-download_md = st.download_button("Download as Markdown", file_name = r"digiscribe_md.md", data = markdown_text)
-
+col1, col2 = st.columns(2)
+dowload_cont = col1.container(horizontal_alignment = "left")
+next_cont = col2.container(horizontal_alignment = "right")
+download_md = dowload_cont.download_button("Download as Markdown", file_name = r"digiscribe_md.md", data = markdown_text, icon=":material/download:", on_click = "ignore")
+next_button = next_cont.page_link(page = r"StudentHub.py",icon = ":material/school:", label = "Student Hub")
