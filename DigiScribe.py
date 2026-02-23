@@ -11,6 +11,7 @@ import time
 # import os
 
 st.set_page_config(page_title = "DigiScribe")
+st.logo(image = r"DigiScribe_Logo.png", icon_image = r"DigiScribe_logo_icon.png")
 
 st.session_state.initial_run = False
 
@@ -263,14 +264,14 @@ with st.container(horizontal_alignment = "right"):
     st.page_link(page = r"pages/TextEditor.py", icon = ":material/edit:", label = "Text Editor") # Use forward slash instead of backslash for page directories
 
 
-# TODO: Add warning to refrain from uploading personal details on DigiScribe
 # TODO: Add a text editor section where low confidence words/phrases/sentences are bolded and the user can edit them and then download
 # TODO: Add easyOCR model files to fix bug
 # TODO: Add batch processing multiple images
 # TODO: Add text to speech capabilities
 # TODO: Add AI summaries of text/notes
 # TODO: Create DigiScribe Student mode with AI summaries and quizes and different note-taking methods like cornell notes 
-
+# TODO: Remove errors showing once website is successful and set toolbar mode to minimal to get rid of the extra elements like the running man
+# and the deploy button. Do both with config.toml
 
 #---------- Later ----------#
 # TODO: Make third tab with Image with Bounded Box of words

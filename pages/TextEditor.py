@@ -3,6 +3,8 @@ import markdownify
 from streamlit_quill import st_quill
 
 st.set_page_config(page_title = "DigiScribe - Text Editor")
+st.logo(image = r"DigiScribe_Logo.png", icon_image = r"DigiScribe_logo_icon.png")
+
 
 # Initialize session states
 if "MODE" not in st.session_state:
