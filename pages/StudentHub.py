@@ -4,14 +4,14 @@ st.set_page_config(page_title = "DigiScribe - Student Hub")
 st.logo(image = r"DigiScribe_Logo.png", icon_image = r"DigiScribe_logo_icon.png", size = "large")
 
 # Sidebar customized menu
-st.sidebar.markdown("**Extract Text from Images:**")
-st.sidebar.page_link(r"DigiScribe.py", label = "DigiScribe", icon = ":material/image:")
+st.sidebar.subheader("**Extract Text from Images:**")
+st.sidebar.page_link(r"DigiScribe.py", label = "***DigiScribe***", icon = ":material/image:")
 
-st.sidebar.markdown("**Markdown Text Editor:**")
-st.sidebar.page_link(r"pages/TextEditor.py", label = "Text Editor", icon = ":material/edit:")
+st.sidebar.subheader("**Markdown Text Editor:**")
+st.sidebar.page_link(r"pages/TextEditor.py", label = "***Text Editor***", icon = ":material/edit:")
 
-st.sidebar.markdown("**Student Hub:**")
-st.sidebar.page_link(r"pages/TextEditor.py", label = "Student Hub", icon = ":material/school:")
+st.sidebar.subheader("**Student Hub:**")
+st.sidebar.page_link(r"pages/TextEditor.py", label = "***Student Hub***", icon = ":material/school:")
 
 
 # Initialize session states
