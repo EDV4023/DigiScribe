@@ -8,7 +8,7 @@ st.logo(image = r"DigiScribe_Logo.png",icon_image = r"DigiScribe_logo_icon.png",
 # Sidebar customized menu
 st.sidebar.title("**DigiScribe Menu**")
 st.sidebar.markdown("""
-<style> h1 {font-size:25px} </style>
+<style> h1 {font-size:50px} </style>
 """
             ,unsafe_allow_html = True)
 st.sidebar.space("xxsmall")
