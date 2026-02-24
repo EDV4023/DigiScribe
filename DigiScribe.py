@@ -216,7 +216,7 @@ with st.container(border = True, key = "image_input_cont"):
         captured_file = st.camera_input("**Take a picture**", key = "camera_input")
     with cam:
         # captured_file = st.camera_input("**Take a picture**", key = "camera_input")
-        st.image(r"placeholder_image.jpg", width = "stretch")
+        st.image(r"placeholder_image.png", width = "stretch")
 
 if uploaded_file == None and captured_file != None:
     FILE = captured_file
