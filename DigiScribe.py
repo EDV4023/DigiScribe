@@ -216,8 +216,9 @@ with st.container(border = True, key = "image_input_cont"):
         captured_file = st.camera_input("**Take a picture**", key = "camera_input")
     with cam:
         # captured_file = st.camera_input("**Take a picture**", key = "camera_input")
+        empty = st.empty()
         if not st.session_state.uploaded:
-            st.image(r"placeholder_image.png", width = "stretch")
+            empty.image(r"placeholder_image.png", width = "stretch")
 
 if uploaded_file == None and captured_file != None:
     FILE = captured_file
@@ -232,7 +233,7 @@ elif FILE == None:
     st.session_state["uploaded"] = False
 
 if st.session_state["uploaded"]:
-    cam.image(FILE)
+    empty.image(FILE)
 
 if upload.button("Extract", width = 200, type = "primary"):
     if st.session_state.MODE == "Lite":
