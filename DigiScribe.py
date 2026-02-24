@@ -216,7 +216,8 @@ with st.container(border = True, key = "image_input_cont"):
         captured_file = st.camera_input("**Take a picture**", key = "camera_input")
     with cam:
         # captured_file = st.camera_input("**Take a picture**", key = "camera_input")
-        st.image(r"placeholder_image.png", width = "stretch")
+        if not st.session_state.uploaded:
+            st.image(r"placeholder_image.png", width = "stretch")
 
 if uploaded_file == None and captured_file != None:
     FILE = captured_file
@@ -230,10 +231,8 @@ if FILE != None:
 elif FILE == None:
     st.session_state["uploaded"] = False
 
-# if st.session_state["uploaded"]:
-#     refined_text = "" 
-#     text = "" 
-#     extra_details = ""
+if st.session_state["uploaded"]:
+    cam.image(FILE)
 
 if upload.button("Extract", width = 200, type = "primary"):
     if st.session_state.MODE == "Lite":
@@ -242,7 +241,7 @@ if upload.button("Extract", width = 200, type = "primary"):
         st.session_state.text, st.session_state.refined_text = perform_extraction()
 
 
-extracted, refined, img = st.tabs(["Initially Extracted Text","Refined Text", "Image"])
+extracted, refined= st.tabs(["Initially Extracted Text","Refined Text"])
 
 with extracted:
     ex_cont = st.container(height = 200, key = "extc")
@@ -264,11 +263,6 @@ with refined:
     #         pyperclip.copy(refined_text)
     # with refined_download:
     st.download_button("Download Refined Text", data = st.session_state.refined_text, file_name = "digi_scribe_refined_text.txt", icon=":material/download:", on_click = "ignore")
-
-with img:
-    if FILE != None:
-        st.image(FILE)
-
 
 if st.session_state["uploaded"] and st.session_state.MODE == "Lite":
     st.divider()
