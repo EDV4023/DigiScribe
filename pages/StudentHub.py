@@ -9,7 +9,7 @@ st.logo(image = r"DigiScribe_Logo.png",icon_image = r"DigiScribe_logo_icon.png",
 st.sidebar.title("**DigiScribe Menu**")
 st.sidebar.space(1)
 
-st.sidebar.subheader("**Extract Text from Images:**")
+st.sidebar.subheader("**Extract Text:**")
 st.sidebar.page_link(r"DigiScribe.py", label = "*DigiScribe*", icon = ":material/image:")
 
 st.sidebar.subheader("**Markdown Text Editor:**")
@@ -33,5 +33,5 @@ if "MODE" not in st.session_state:
 
 
 
-st.image(r"DigiScribe_Logo.png", width = 500)
+st.image(r"DigiScribe_Logo.png", width = 750)
 st.title("**:blue[Student Hub]**")

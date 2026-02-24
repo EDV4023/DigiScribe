@@ -17,7 +17,7 @@ st.logo(image = r"DigiScribe_Logo.png",icon_image = r"DigiScribe_logo_icon.png",
 st.sidebar.title("**DigiScribe Menu**")
 st.sidebar.space(1)
 
-st.sidebar.subheader("**Extract Text from Images:**")
+st.sidebar.subheader("**Extract Text:**")
 st.sidebar.page_link(r"DigiScribe.py", label = "*DigiScribe*", icon = ":material/image:")
 
 st.sidebar.subheader("**Markdown Text Editor:**")
@@ -192,7 +192,7 @@ def perform_extraction():
                 return text, refined_text
 
 title, config = st.columns([0.93, 0.07])
-title.image(r"DigiScribe_Logo.png", width = 500)
+title.image(r"DigiScribe_Logo.png", width = 750)
 # st.markdown("<style>img{height:25px; width: 100px}</style>",unsafe_allow_html = True)
 # if st.session_state.MODE == "Lite":
 #     title.title("**:blue[Digi]:blue[Scribe]**   :yellow[  Lite]")
