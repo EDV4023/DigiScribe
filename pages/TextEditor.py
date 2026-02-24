@@ -32,8 +32,13 @@ if "MODE" not in st.session_state:
     st.session_state.avg = 0.0
     st.session_state.uploaded = False
 
+<<<<<<< HEAD
 st.image(r"DigiScribe_Logo.png", width = 750)
 # st.title("**:gray[Text Editor]**")
+=======
+st.image(r"DigiScribe_Logo.png", width = 500)
+st.title("**:gray[Text Editor]**")
+>>>>>>> parent of 1181ae0 (Color Changes)
 
 with st.container(border = True):
     st.markdown(st.session_state.refined_text)

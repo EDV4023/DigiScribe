@@ -33,5 +33,10 @@ if "MODE" not in st.session_state:
 
 
 
+<<<<<<< HEAD
 st.image(r"DigiScribe_Logo.png", width = 750)
 st.title("**:blue[Student Hub]**")
+=======
+st.image(r"DigiScribe_Logo.png", width = 500)
+st.title("**:green[Student Hub]**")
+>>>>>>> parent of 1181ae0 (Color Changes)
