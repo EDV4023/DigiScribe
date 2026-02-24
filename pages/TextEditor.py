@@ -33,7 +33,7 @@ if "MODE" not in st.session_state:
     st.session_state.uploaded = False
 
 st.image(r"DigiScribe_Logo.png", width = 500)
-st.title("**:gray[Text Editor]**")
+# st.title("**:gray[Text Editor]**")
 
 with st.container(border = True):
     st.markdown(st.session_state.refined_text)

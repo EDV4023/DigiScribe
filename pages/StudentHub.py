@@ -34,4 +34,4 @@ if "MODE" not in st.session_state:
 
 
 st.image(r"DigiScribe_Logo.png", width = 500)
-st.title("**:green[Student Hub]**")
+st.title("**:blue[Student Hub]**")
