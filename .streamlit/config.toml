@@ -5,10 +5,10 @@ fastReruns = true
 [theme]
 primaryColor="#213ab3"
 backgroundColor="#eaecd3"
-secondaryBackgroundColor="#ca9a5b"
-textColor="#1a528e"
+secondaryBackgroundColor="rgb(202, 154, 91)"
+textColor="#1e314b"
 font = "Indie Flower:https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap, sans-serif"
-baseFontSize = 18
+baseFontSize = 20
 
 [client]
 showSidebarNavigation = false
