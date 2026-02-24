@@ -31,7 +31,7 @@ st.sidebar.page_link(r"pages/StudentHub.py", label = "*Student Hub*", icon = ":m
 st.session_state.initial_run = False
 
 if "MODE" not in st.session_state:
-    st.session_state.MODE = "Lite"
+    st.session_state.MODE = "Performance"
     st.session_state.context = ""
     st.session_state.context_sentence = ""
     st.session_state.allowlist = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?$ "
@@ -54,7 +54,7 @@ if "uploaded" not in st.session_state:
 
 @st.dialog("**Configurations**", on_dismiss = "rerun")
 def configurations():
-    st.pills("**Mode:**", options = ["Lite", "Performance"], selection_mode = "single", key = "MODE_input")
+    # st.pills("**Mode:**", options = ["Lite", "Performance"], selection_mode = "single", key = "MODE_input")
 
     st.text_input("**Provide context/topic for image:**", placeholder = "Enter context", key = "context_input")
 
@@ -62,8 +62,8 @@ def configurations():
     st.text_input("**Enter allowed list of characters**", placeholder = "abcdefg...",key = "allowlist")
 
     def submit():
-        if st.session_state.MODE_input:
-            st.session_state.MODE = st.session_state.MODE_input
+        # if st.session_state.MODE_input:
+        #     st.session_state.MODE = st.session_state.MODE_input
         if st.session_state.context_input.strip() != "":
             st.session_state.context_sentence = "**The context for the image:** \"" + st.session_state.context_input + "\"."
         if " " not in st.session_state.allowlist:
@@ -126,57 +126,57 @@ def recognize(image):
     return vision_text.text, response.text
 
 
-def extract_text(file_param):
-    # Read bytes from Streamlit file
-    file_bytes = np.frombuffer(file_param.read(), np.uint8)
-    # Decode into OpenCV image
-    image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+# def extract_text(file_param):
+#     # Read bytes from Streamlit file
+#     file_bytes = np.frombuffer(file_param.read(), np.uint8)
+#     # Decode into OpenCV image
+#     image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-    # Sharpen edges in image to enhance accuracy:
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Turn image into grayscale
-    sharpener = np.array([[-1,-1,-1],[-1,9,-1],[-1,-1,-1]]) # Define Filter Kernel
-    sharpen = cv2.filter2D(gray, -1, sharpener) # Apply Filter Kernel
-    thresh = cv2.threshold(sharpen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+#     # Sharpen edges in image to enhance accuracy:
+#     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Turn image into grayscale
+#     sharpener = np.array([[-1,-1,-1],[-1,9,-1],[-1,-1,-1]]) # Define Filter Kernel
+#     sharpen = cv2.filter2D(gray, -1, sharpener) # Apply Filter Kernel
+#     thresh = cv2.threshold(sharpen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
 
-    text = handwriting_reader.readtext(thresh, detail = 1, allowlist = st.session_state.allowlist)
-    simple_text = str(" ".join(handwriting_reader.readtext(thresh, detail = 0, allowlist = st.session_state.allowlist, paragraph = True)))
-    # simple_text = simple_text[2:-2]
+#     text = handwriting_reader.readtext(thresh, detail = 1, allowlist = st.session_state.allowlist)
+#     simple_text = str(" ".join(handwriting_reader.readtext(thresh, detail = 0, allowlist = st.session_state.allowlist, paragraph = True)))
+#     # simple_text = simple_text[2:-2]
 
-    bbox_list = []
-    word_list = []
-    confidence_list = []
+#     bbox_list = []
+#     word_list = []
+#     confidence_list = []
 
-    average_confidence = 0
+#     average_confidence = 0
 
-    for (bbox, word, confidence) in text:
-        bbox_list.append(bbox)
-        word_list.append(word)
-        confidence_list.append(float(confidence))
-        average_confidence += float(confidence)
+#     for (bbox, word, confidence) in text:
+#         bbox_list.append(bbox)
+#         word_list.append(word)
+#         confidence_list.append(float(confidence))
+#         average_confidence += float(confidence)
 
-    average_confidence /= len(confidence_list)
+#     average_confidence /= len(confidence_list)
 
-    annotated_text = ""
+#     annotated_text = ""
 
-    for i, segment in enumerate(word_list):
-        annotated_text += "***" + str(segment) + "***"
-        annotated_text += " (Confidence: " +  str(confidence_list[i]) + "), "
+#     for i, segment in enumerate(word_list):
+#         annotated_text += "***" + str(segment) + "***"
+#         annotated_text += " (Confidence: " +  str(confidence_list[i]) + "), "
 
-    try: 
-        response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents = f"This text was taken out of an OCR software. Refine the words, phrases, or sentences that are nonsensical so that the final text is intelligible. Do not change the order of the original characters after refinement. First fix spelling issues then move onto grammar issues. Only output the final, refined text. Add punctuation accordingly. The confidence scores from the OCR model are also given, for high confidence segments avoid changing it unless there are clarity/spelling/context issues. {st.session_state.context_sentence}  Put ** (Double Asterisks) around text segments that the OCR had below 0.50 in confidence. Here is the input text: {annotated_text}.",
-            config = types.GenerateContentConfig(
-                temperature = 0.1 # Using a Lower temperature since the task does not necessitate variety 
-            )
-        )
-    except:
-        st.error("Too many server requests. Try again later.")
-        st.stop()
-        return
+#     try: 
+#         response = client.models.generate_content(
+#             model="gemini-2.0-flash",
+#             contents = f"This text was taken out of an OCR software. Refine the words, phrases, or sentences that are nonsensical so that the final text is intelligible. Do not change the order of the original characters after refinement. First fix spelling issues then move onto grammar issues. Only output the final, refined text. Add punctuation accordingly. The confidence scores from the OCR model are also given, for high confidence segments avoid changing it unless there are clarity/spelling/context issues. {st.session_state.context_sentence}  Put ** (Double Asterisks) around text segments that the OCR had below 0.50 in confidence. Here is the input text: {annotated_text}.",
+#             config = types.GenerateContentConfig(
+#                 temperature = 0.1 # Using a Lower temperature since the task does not necessitate variety 
+#             )
+#         )
+#     except:
+#         st.error("Too many server requests. Try again later.")
+#         st.stop()
+#         return
 
-    return simple_text, response.text, annotated_text, average_confidence
+#     return simple_text, response.text, annotated_text, average_confidence
 
 def perform_extraction():
     if st.session_state["uploaded"]:
@@ -184,10 +184,10 @@ def perform_extraction():
         text = "" 
         extra_details = ""
         with st.spinner("Extracting...", show_time = True):
-            if st.session_state.MODE == "Lite":
-                text, refined_text, extra_details, avg = extract_text(FILE)
-                return text, refined_text, extra_details, avg
-            elif st.session_state.MODE == "Performance":
+            # if st.session_state.MODE == "Lite":
+            #     text, refined_text, extra_details, avg = extract_text(FILE)
+            #     return text, refined_text, extra_details, avg
+            if st.session_state.MODE == "Performance":
                 text, refined_text = recognize(FILE)
                 return text, refined_text
 
@@ -239,9 +239,9 @@ if not st.session_state["uploaded"]:
     empty.image(r"placeholder_image.png", width = "stretch")
 
 if upload.button("Extract", width = 200, type = "primary"):
-    if st.session_state.MODE == "Lite":
-        st.session_state.text, st.session_state.refined_text, st.session_state.extra_details, st.session_state.avg = perform_extraction()
-    else:
+    # if st.session_state.MODE == "Lite":
+        # st.session_state.text, st.session_state.refined_text, st.session_state.extra_details, st.session_state.avg = perform_extraction()
+    if st.session_state.MODE == "Performance":
         st.session_state.text, st.session_state.refined_text = perform_extraction()
 
 
@@ -268,11 +268,11 @@ with refined:
     # with refined_download:
     st.download_button("Download Refined Text", data = st.session_state.refined_text, file_name = "digi_scribe_refined_text.txt", icon=":material/download:", on_click = "ignore")
 
-if st.session_state["uploaded"] and st.session_state.MODE == "Lite":
+if st.session_state["uploaded"]:
     st.divider()
     with st.expander("Extra Data/Stats:"):
-        st.write(f"***Average Confidence:*** {st.session_state.avg}")
-        st.write(st.session_state.extra_details)
+        # st.write(f"***Average Confidence:*** {st.session_state.avg}")
+        # st.write(st.session_state.extra_details)
         st.write("***Configurations:***")
         st.write("**Allowed characters:** [space]" + st.session_state.allowlist)
         st.write(st.session_state.context_sentence)

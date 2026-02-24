@@ -22,7 +22,7 @@ st.sidebar.page_link(r"pages/StudentHub.py", label = "*Student Hub*", icon = ":m
 
 # Initialize session states
 if "MODE" not in st.session_state:
-    st.session_state.MODE = "Lite"
+    st.session_state.MODE = "Performance"
     st.session_state.context = ""
     st.session_state.context_sentence = ""
     st.session_state.allowlist = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?$ "
