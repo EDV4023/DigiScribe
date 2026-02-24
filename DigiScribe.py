@@ -193,7 +193,7 @@ def perform_extraction():
 
 title, config = st.columns([0.93, 0.07])
 title.image(r"DigiScribe_Logo.png")
-title.markdown("<style>img{height:50px, width: 150px}</style>",unsafe_allow_html = True)
+title.markdown("<style>img{height:25px, width: 100px}</style>",unsafe_allow_html = True)
 # if st.session_state.MODE == "Lite":
 #     title.title("**:blue[Digi]:blue[Scribe]**   :yellow[  Lite]")
 # elif st.session_state.MODE == "Performance":
