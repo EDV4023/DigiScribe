@@ -2,8 +2,8 @@ import streamlit as st
 import markdownify
 from streamlit_quill import st_quill
 
-st.set_page_config(page_title = "DigiScribe - Text Editor")
-st.logo(image = r"DigiScribe_Logo.png", icon_image = r"DigiScribe_logo_icon.png", size = "large")
+st.set_page_config(page_title = "DigiScribe - Text Editor", page_icon = r"DigiScribe_logo_icon.png")
+st.logo(image = r"DigiScribe\DigiScribe_Logo.png",icon_image = r"DigiScribe_logo_icon.png", size = "large")
 
 # Sidebar customized menu
 st.sidebar.subheader("**Extract Text from Images:**")
