@@ -1,7 +1,7 @@
 import streamlit as st
 
 
-st.set_page_config(page_title = "DigiScribe - Student Hub", page_icon = r"DigiScribe_logo_icon.png")
+st.set_page_config(page_title = "DigiScribe - Student Hub", page_icon = r"DigiScribe_logo_icon.png", layout = "wide")
 st.logo(image = r"DigiScribe_Logo.png",icon_image = r"DigiScribe_logo_icon.png", size = "large")
 
 
@@ -33,4 +33,6 @@ if "MODE" not in st.session_state:
 
 
 
-st.title("**:blue[Digi]:blue[Scribe]**   :green[  Student Hub]")
+col1, col2 = st.columns(2)
+col1.image(r"DigiScribe_Logo.png", width = 500)
+col2.title("**:green[Student Hub]**")

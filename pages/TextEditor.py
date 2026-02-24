@@ -2,7 +2,7 @@ import streamlit as st
 import markdownify
 from streamlit_quill import st_quill
 
-st.set_page_config(page_title = "DigiScribe - Text Editor", page_icon = r"DigiScribe_logo_icon.png")
+st.set_page_config(page_title = "DigiScribe - Text Editor", page_icon = r"DigiScribe_logo_icon.png", layout = "wide")
 st.logo(image = r"DigiScribe_Logo.png",icon_image = r"DigiScribe_logo_icon.png", size = "large")
 # st.markdown("<style>.stLogo st-emotion-cache-4xtz07 e9ic3ti7{width:}</style>", unsafe_allow_html = True)
 
@@ -32,9 +32,9 @@ if "MODE" not in st.session_state:
     st.session_state.avg = 0.0
     st.session_state.uploaded = False
 
-
-
-st.title("**:blue[Digi]:blue[Scribe]**   :gray[  Text Editor]")
+col1, col2 = st.columns(2)
+col1.image(r"DigiScribe_Logo.png", width = 500)
+col2.title("**:gray[Text Editor]**")
 
 with st.container(border = True):
     st.markdown(st.session_state.refined_text)
