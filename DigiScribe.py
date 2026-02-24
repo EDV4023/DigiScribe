@@ -192,7 +192,8 @@ def perform_extraction():
                 return text, refined_text
 
 title, config = st.columns([0.93, 0.07])
-st.image(r"DigiScribe_Logo.png")
+with st.container(key = "title_cont", height = 100):
+    st.image(r"DigiScribe_Logo.png")
 # if st.session_state.MODE == "Lite":
 #     title.title("**:blue[Digi]:blue[Scribe]**   :yellow[  Lite]")
 # elif st.session_state.MODE == "Performance":
