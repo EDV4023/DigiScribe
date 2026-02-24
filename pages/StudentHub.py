@@ -33,6 +33,5 @@ if "MODE" not in st.session_state:
 
 
 
-col1, col2 = st.columns(2)
-col1.image(r"DigiScribe_Logo.png", width = 500)
-col2.title("**:green[Student Hub]**")
+st.image(r"DigiScribe_Logo.png", width = 500)
+st.title("**:green[Student Hub]**")
