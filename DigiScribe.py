@@ -212,9 +212,11 @@ with st.container(border = True, key = "image_input_cont"):
 
     with upload:
         uploaded_file = st.file_uploader(label = "**Upload an Image for Conversion (PNG, JPG, JPEG)**", type = ["jpg", "jpeg", "png"], key = "file_uploader")  # r"Handwriting Recognition\Images_Examples\aTfamilymovingsentence.png"
-        st.space(10)
+        # st.space(10)
+        captured_file = st.camera_input("**Take a picture**", key = "camera_input")
     with cam:
-        captured_file = st.camera_input("**Take a picture**", key = "camera_input", width = 300)
+        # captured_file = st.camera_input("**Take a picture**", key = "camera_input")
+        st.image(r"image_placeholder.png")
 
 if uploaded_file == None and captured_file != None:
     FILE = captured_file
