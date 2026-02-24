@@ -77,7 +77,7 @@ def configurations():
     
 
 def resize(image):
-    max_side = 1200
+    max_side = 900
     height, width = image.shape[0:2]
     scale = max_side / max(height, width)
 
