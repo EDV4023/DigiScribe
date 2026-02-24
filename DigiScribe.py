@@ -235,6 +235,9 @@ elif FILE == None:
 if st.session_state["uploaded"]:
     empty.image(FILE)
 
+if not st.session_state["uploaded"]:
+    empty.image(r"placeholder_image.png", width = "stretch")
+
 if upload.button("Extract", width = 200, type = "primary"):
     if st.session_state.MODE == "Lite":
         st.session_state.text, st.session_state.refined_text, st.session_state.extra_details, st.session_state.avg = perform_extraction()
