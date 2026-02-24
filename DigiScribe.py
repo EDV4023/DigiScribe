@@ -192,10 +192,11 @@ def perform_extraction():
                 return text, refined_text
 
 title, config = st.columns([0.93, 0.07])
-if st.session_state.MODE == "Lite":
-    title.title("**:blue[Digi]:blue[Scribe]**   :yellow[  Lite]")
-elif st.session_state.MODE == "Performance":
-    title.title("**:blue[Digi]:blue[Scribe]**   :red[  Performance]")
+st.image(r"DigiScribe_Logo.png")
+# if st.session_state.MODE == "Lite":
+#     title.title("**:blue[Digi]:blue[Scribe]**   :yellow[  Lite]")
+# elif st.session_state.MODE == "Performance":
+#     title.title("**:blue[Digi]:blue[Scribe]**   :red[  Performance]")
 
 config.button("", icon = ":material/settings:", on_click = configurations)
 

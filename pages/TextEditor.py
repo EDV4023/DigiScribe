@@ -4,6 +4,7 @@ from streamlit_quill import st_quill
 
 st.set_page_config(page_title = "DigiScribe - Text Editor", page_icon = r"DigiScribe_logo_icon.png")
 st.logo(image = r"DigiScribe_Logo.png",icon_image = r"DigiScribe_logo_icon.png", size = "large")
+# st.markdown("<style>.stLogo st-emotion-cache-4xtz07 e9ic3ti7{width:}</style>", unsafe_allow_html = True)
 
 # Sidebar customized menu
 st.sidebar.title("**DigiScribe Menu**")
