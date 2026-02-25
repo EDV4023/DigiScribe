@@ -40,7 +40,9 @@ st.image(r"DigiScribe_Logo.png", width = 750)
 with st.container(horizontal_alignment = "right"):
     with st.popover("Insert Text"):
         st.write("**Current Text:**")
-        st.session_state.edited_text = st.text_area(label = "Edit Text", value = st.session_state.edited_text)
+        st.text_area(label = "Edit Text", value = st.session_state.edited_text, key = "edit_text")
+        if st.button("Edit Text"):
+            st.session_state.edited_text = st.session_state.edit_text
 
 with st.container(border = True):
     st.markdown(st.session_state.refined_text)
