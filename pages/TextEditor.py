@@ -32,8 +32,15 @@ if "MODE" not in st.session_state:
     st.session_state.avg = 0.0
     st.session_state.uploaded = False
 
+if "edited_text" not in st.session_state:
+     st.session_state.edited_text = st.session_state.refined_text
+
 st.image(r"DigiScribe_Logo.png", width = 750)
 # st.title("**:gray[Text Editor]**")
+with st.container(horizontal_alignment = "right"):
+    with st.popover("Insert Text"):
+        st.write("**Current Text:**")
+        st.session_state.edited_text = st.text_area(st.session_state.edited_text)
 
 with st.container(border = True):
     st.markdown(st.session_state.refined_text)
@@ -41,6 +48,7 @@ with st.container(border = True):
 
 content = st_quill(value = st.session_state.refined_text.replace("*", ""), html = True)
 markdown_text = markdownify.markdownify(content)
+st.session_state.edited_text = markdown_text
 
 with open("digiscribe_md.md", "w") as f:
         f.write(markdown_text)
