@@ -53,26 +53,33 @@ with c2:
                 st.session_state.edited_text = st.session_state.edit_text
 
 with st.container(border = True, height = 250):
-    st.markdown(st.session_state.edited_text)
+    if "edited_text" not in st.session_state:
+        st.markdown(" ")
+    else:
+        st.markdown(st.session_state.edited_text)
     st.caption("Bolded text represents segments where the model confidence was low.")
 
 # content = st_quill(value = st.session_state.refined_text.replace("*", ""), html = True)
 # if edit_button:
-content = st_quill(value = st.session_state.edited_text.replace("*", ""), html = True)
+if "edited_text" not in st.session_state:
+    content = st_quill(value = " ", html = True)
+else:
+    content = st_quill(value = st.session_state.edited_text.replace("*", ""), html = True)
 # else:
 #     content = st_quill(value = st.session_state.refined_text.replace("*", ""), html = True)
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 dowload_cont = col1.container(horizontal_alignment = "left")
-confirm_cont = col2.container(horizontal_alignment = "left")
-next_cont = col3.container(horizontal_alignment = "right")
+next_cont = col2.container(horizontal_alignment = "right")
 
-confirm_button = dowload_cont.button("Confirm Text")
+empty = dowload_cont.empty()
+
+confirm_button = empty.button("Confirm Text")
 if confirm_button:
     markdown_text = markdownify.markdownify(content)
     st.session_state.edited_text = markdown_text
-    with open("digiscribe_md.md", "w") as f:
-        f.write(markdown_text)
-    download_md = confirm_cont.download_button("Download as Markdown", file_name = r"digiscribe_md.md", data = markdown_text, icon=":material/download:", on_click = "ignore")
+    # with open("digiscribe_md.md", "w") as f:
+    #     f.write(markdown_text)
+    download_md = empty.download_button("Download as Markdown", file_name = r"digiscribe_md.md", data = markdown_text, icon=":material/download:", on_click = "ignore")
 
 next_button = next_cont.page_link(page = r"pages/StudentHub.py",icon = ":material/school:", label = "Student Hub")
