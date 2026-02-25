@@ -42,7 +42,7 @@ c1, c2 = st.columns(2)
 with c1.container(horizontal_alignment = "left"):
     c1.header(":gray[Text Editor]")
 with c2.container(horizontal_alignment = "right"):
-    with c2.popover("Insert Text"):
+    with st.popover("Insert Text"):
         # st.write("**Current Text:**")
         st.text_area(label = "**Edit Current Text**", value = st.session_state.refined_text, key = "edit_text")
         if st.button("Edit Text:"):
