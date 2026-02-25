@@ -33,7 +33,7 @@ if "MODE" not in st.session_state:
     st.session_state.uploaded = False
 
 if "edited_text" not in st.session_state and st.session_state.refined_text:
-     st.session_state.edited_text = st.session_state.refined_text
+    st.session_state.edited_text = st.session_state.refined_text
 
 st.image(r"DigiScribe_Logo.png", width = 750)
 # st.title("**:gray[Text Editor]**")
@@ -57,10 +57,10 @@ with st.container(border = True, height = 250):
     st.caption("Bolded text represents segments where the model confidence was low.")
 
 # content = st_quill(value = st.session_state.refined_text.replace("*", ""), html = True)
-if edit_button:
-    content = st_quill(value = st.session_state.edited_text.replace("*", ""), html = True)
-else:
-    content = st_quill(value = st.session_state.refined_text.replace("*", ""), html = True)
+# if edit_button:
+content = st_quill(value = st.session_state.edited_text.replace("*", ""), html = True)
+# else:
+#     content = st_quill(value = st.session_state.refined_text.replace("*", ""), html = True)
 
 col1, col2, col3 = st.columns(3)
 dowload_cont = col1.container(horizontal_alignment = "left")
