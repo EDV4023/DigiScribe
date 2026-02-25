@@ -39,9 +39,9 @@ st.image(r"DigiScribe_Logo.png", width = 750)
 # st.title("**:gray[Text Editor]**")
 
 c1, c2 = st.columns(2)
-with st.container(horizontal_alignment = "left"):
+with c1.container(horizontal_alignment = "left"):
     st.header(":gray[Text Editor]")
-with st.container(horizontal_alignment = "right"):
+with c2.container(horizontal_alignment = "right"):
     with st.popover("Insert Text"):
         # st.write("**Current Text:**")
         st.text_area(label = "**Edit Current Text**", value = st.session_state.refined_text, key = "edit_text")
