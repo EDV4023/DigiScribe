@@ -32,11 +32,15 @@ if "MODE" not in st.session_state:
     st.session_state.avg = 0.0
     st.session_state.uploaded = False
 
-if "edited_text" not in st.session_state:
+if "edited_text" not in st.session_state and st.session_state.refined_text:
      st.session_state.edited_text = st.session_state.refined_text
 
 st.image(r"DigiScribe_Logo.png", width = 750)
 # st.title("**:gray[Text Editor]**")
+
+c1, c2 = st.columns(2)
+with st.container(horizontal_alignment = "left"):
+    st.header(":gray[Text Editor]")
 with st.container(horizontal_alignment = "right"):
     with st.popover("Insert Text"):
         # st.write("**Current Text:**")
