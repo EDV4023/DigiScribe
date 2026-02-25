@@ -47,7 +47,7 @@ with c2:
     with st.container(horizontal_alignment = "right"):
         with st.popover("Insert Text"):
             # st.write("**Current Text:**")
-            st.text_area(label = "**Edit Current Text**", value = st.session_state.refined_text, key = "edit_text")
+            st.text_area(label = "**Edit Current Text**", value = st.session_state.edited_text, key = "edit_text")
             edit_button = st.button("Edit Text:")
             if edit_button:
                 st.session_state.edited_text = st.session_state.edit_text
