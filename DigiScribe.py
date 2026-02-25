@@ -109,6 +109,8 @@ def recognize(image):
         st.stop()
         return
 
+    time.sleep(1) # To prevent TooManyRequest Errors
+
     try:
         response = client.models.generate_content(
         model="gemini-2.0-flash",
