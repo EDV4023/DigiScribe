@@ -45,7 +45,7 @@ with st.container(horizontal_alignment = "right"):
             st.session_state.edited_text = st.session_state.edit_text
 
 with st.container(border = True):
-    st.markdown(st.session_state.refined_text)
+    st.markdown(st.session_state.edited_text)
     st.caption("Bolded text represents segments where the model confidence was low.")
 
 content = st_quill(value = st.session_state.refined_text.replace("*", ""), html = True)
