@@ -60,6 +60,6 @@ if confirm_button:
     st.session_state.edited_text = markdown_text
     with open("digiscribe_md.md", "w") as f:
         f.write(markdown_text)
+    download_md = dowload_cont.download_button("Download as Markdown", file_name = r"digiscribe_md.md", data = markdown_text, icon=":material/download:", on_click = "ignore")
 
-download_md = dowload_cont.download_button("Download as Markdown", file_name = r"digiscribe_md.md", data = markdown_text, icon=":material/download:", on_click = "ignore")
 next_button = next_cont.page_link(page = r"pages/StudentHub.py",icon = ":material/school:", label = "Student Hub")
