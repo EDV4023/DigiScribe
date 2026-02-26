@@ -101,7 +101,7 @@ def recognize(image):
             model = "gemini-2.0-flash",
             contents = [
                 types.Part.from_bytes(data = image_bytes, mime_type = "image/jpeg"),
-                "Transcribe the text from the image exactly. Do not perform any spelling/grammar/context changes keep the exact layout as it was given."
+                "Transcribe the text from the image exactly. Format words sentences as necessary as shown in the image. Do not perform any spelling/grammar/context changes keep the exact layout as it was given."
             ]
         )
     except:
@@ -283,8 +283,7 @@ with st.container(horizontal_alignment = "right"):
     st.page_link(page = r"pages/TextEditor.py", icon = ":material/edit:", label = "Text Editor") # Use forward slash instead of backslash for page directories
 
 
-# TODO: Add a text editor section where low confidence words/phrases/sentences are bolded and the user can edit them and then download
-# TODO: Add easyOCR model files to fix bug
+
 # TODO: Add batch processing multiple images
 # TODO: Add text to speech capabilities
 # TODO: Add AI summaries of text/notes
