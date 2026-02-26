@@ -285,7 +285,7 @@ sns.set_theme(
         "figure.facecolor": "#F2F6FA"}
 )
 
-palette = sns.light_palette("#A7D8F0", n_colors=2)
+palette = palette = ["#56B7E8", "#2F6F95"] 
 
 sns.barplot(
     data=df,
@@ -295,8 +295,8 @@ sns.barplot(
     palette=palette
 )
 
-plt.axhline(avg_lev, linestyle="--", linewidth=2, label="Average Levenshtein")
-plt.axhline(avg_cos, linestyle=":", linewidth=2, label="Average Cosine")
+plt.axhline(avg_lev, linestyle="--", linewidth=2, label="Average Levenshtein", color = "black")
+plt.axhline(avg_cos, linestyle=":", linewidth=2, label="Average Cosine", color = "black")
 
 # Add text slightly above each line
 plt.text(
