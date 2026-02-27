@@ -41,14 +41,14 @@ st.title("**:blue[Student Hub]**")
 
 concise_summary_cont = st.container(border = True)
 
-if "concise_summary" not in st.session_state and st.session_state.edited_text and st.session_state.refined_text:
+if "concise_summary" not in st.session_state and st.session_state.edited_text and "edited_text" in st.session_state:
     st.session_state.concise_summary = ""
 
 def get_concise_summary():
     try:
         response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents = f"Provide a short and quick summary of the text in bullet point format. No more than 5 bullet points with each bullet point being a maximum of one sentence. Here is the text to be summarized: {st.session_state.edited_text}",
+        contents = f"Do not start the response with any formalities, greetings or messages like \"Here is a concise 5 bullet point summary\". Provide a short and quick summary of the text in bullet point format. No more than 5 bullet points with each bullet point being a maximum of one sentence. Here is the text to be summarized: {st.session_state.edited_text}",
             )
         st.session_state.concise_summary = response.text
         concise_summary_cont.markdown(st.session_state.concise_summary)

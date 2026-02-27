@@ -12,3 +12,4 @@ baseFontSize = 18
 
 [client]
 showSidebarNavigation = false
+showErrorDetails = false
