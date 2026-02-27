@@ -41,14 +41,18 @@ st.title("**:blue[Student Hub]**")
 
 concise_summary_cont = st.container(border = True)
 
-if "concise_summary" not in st.session_state and st.session_state.edited_text and "edited_text" in st.session_state:
+if "concise_summary" not in st.session_state and "edited_text" in st.session_state:
     st.session_state.concise_summary = ""
+
+if "study_guide" not in st.session_state and "edited_text" in st.session_state:
+    st.session_state.study_guide = ""
+
 
 def get_concise_summary():
     try:
         response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents = f"Do not start the response with any formalities, greetings or messages like \"Here is a concise 5 bullet point summary\". Provide a short and quick summary of the text in bullet point format. No more than 5 bullet points with each bullet point being a maximum of one sentence. Here is the text to be summarized: {st.session_state.edited_text}",
+        contents = f"Do not start the response with any formalities, greetings or messages like \"Here is a concise 5 bullet point summary\". Provide a short and quick summary of the text in bullet point format. No more than 5 bullet points with each bullet point being a maximum of one sentence. If not text given respond with no text as well. Here is the text to be summarized: {st.session_state.edited_text}",
             )
         st.session_state.concise_summary = response.text
         concise_summary_cont.markdown(st.session_state.concise_summary)
@@ -58,3 +62,21 @@ def get_concise_summary():
 
 
 st.button("Summarize Text", on_click = get_concise_summary)
+
+
+study_guide_cont = st.container(border = True, height = 500)
+
+
+def get_study_guide():
+    try:
+        response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents = f"Do not start the response with any formalities, greetings or messages like \"Here is a study guide on...\". Provide a highly detailed summary of the given text/notes. Bold important vocabulary, phrases, and explanations (All Done with Markdown Formating). Format it so that it starts with an in depth summary of the text. Then Important vocabulary and their definitions. Finally, at the end create a 20 question quiz (Without showing the answers) with an assorted mix of multiple choice, free response, True or False, and Select all that are correct questions. Here is the inputted text to create a study guide for: {st.session_state.edited_text}",
+            )
+        st.session_state.study_guide = response.text
+        study_guide_cont.code(st.session_state.study_guide, language = "markdown")
+    except:
+        st.error("Too many server requests. Try again later.")
+        st.stop()
+
+st.button("Create Study Guide", on_click = get_study_guide)

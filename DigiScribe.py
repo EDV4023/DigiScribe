@@ -288,8 +288,7 @@ with st.container(horizontal_alignment = "right"):
 # TODO: Add text to speech capabilities
 # TODO: Add AI summaries of text/notes
 # TODO: Create DigiScribe Student mode with AI summaries and quizes and different note-taking methods like cornell notes 
-# TODO: Remove errors showing once website is successful and set toolbar mode to minimal to get rid of the extra elements like the running man
-# and the deploy button. Do both with config.toml
+
 
 #---------- Later ----------#
 # TODO: Make third tab with Image with Bounded Box of words
