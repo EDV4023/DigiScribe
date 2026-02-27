@@ -64,7 +64,7 @@ if "edited_text" in st.session_state:
     st.button("Summarize Text", on_click = get_concise_summary)
 
 
-    study_guide_cont = st.container(border = True, height = 500, width = 800)
+    study_guide_cont = st.container(border = True, height = 500)
 
 
     def get_study_guide():
@@ -74,7 +74,7 @@ if "edited_text" in st.session_state:
             contents = f"Do not start the response with any formalities, greetings or messages like \"Here is a study guide on...\". Provide a highly detailed summary of the given text/notes. Bold important vocabulary, phrases, and explanations (All Done with Markdown Formating). Format it so that it starts with an in depth summary of the text. Then Important vocabulary and their definitions. Finally, at the end create a 20 question quiz (Without showing the answers) with an assorted mix of multiple choice, free response, True or False, and Select all that are correct questions. In the end list the answers for the quiz with #Number then Answer. Here is the inputted text to create a study guide for: {st.session_state.edited_text}",
                 )
             st.session_state.study_guide = response.text
-            study_guide_cont.code(st.session_state.study_guide, language = "markdown")
+            study_guide_cont.markdown(st.session_state.study_guide)
         except:
             st.error("Too many server requests. Try again later.")
             st.stop()
