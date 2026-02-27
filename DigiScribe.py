@@ -41,10 +41,10 @@ if "MODE" not in st.session_state:
     st.session_state.avg = 0.0
     st.session_state.initial_run = True
 
-@st.cache_resource
-def load_easyocr():
-    return easyocr.Reader(['en'], gpu = False, verbose=True)
-handwriting_reader = load_easyocr()
+# @st.cache_resource
+# def load_easyocr():
+#     return easyocr.Reader(['en'], gpu = False, verbose=True)
+# handwriting_reader = load_easyocr()
 
 
 client = genai.Client(api_key = st.secrets["API_KEY"])
