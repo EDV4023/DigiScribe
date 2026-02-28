@@ -1,6 +1,7 @@
 import streamlit as st
 from google import genai
 from google.genai import types
+from gtts import gTTS
 
 st.set_page_config(page_title = "DigiScribe - Student Hub", page_icon = r"DigiScribe_logo_icon.png", layout = "wide")
 st.logo(image = r"DigiScribe_Logo.png",icon_image = r"DigiScribe_logo_icon.png", size = "large")
@@ -79,10 +80,27 @@ if "edited_text" in st.session_state:
             st.error("Too many server requests. Try again later.")
             st.stop()
 
+    def play_audio_teach():
+        try:
+            response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents = f"Do not start the response with any formalities, greetings or messages like \"Here is an teacher instructing a student on...\". Provide a summary of the text's main points, vocabulary, and explanations in the format of a teacher instructing one student using simple breakdown, analogies, and step by step guidelines on how to understand the topic. Here is the text to turn into educational lecture format: {st.session_state.study_guide}",
+                )
+            st.session_state.audio_teach = response.text
+            audio_teach = gTTS(st.session_state.audio_teach, lang = "en", slow = False)
+            audio_teach.save("digiscribe_audio_teach.mp3")
+            st.audio("digiscribe_audio_teach.mp3")
+        except:
+            st.error("Too many server requests. Try again later.")
+            st.stop()
+
+    
+
     empty = st.empty()
     study_guide_button =  empty.button("Create Study Guide", on_click = get_study_guide)
     if study_guide_button:
-        empty.download_button("Download as Markdown", file_name = "digiscribe_study_guide.md", data = st.session_state.study_guide, on_click = "ignore")
-
+        with empty.container(horizontal_alignment = "left") as study_guide_cont:
+            study_guide_cont.download_button("Download as Markdown", file_name = "digiscribe_study_guide.md", data = st.session_state.study_guide, on_click = "ignore")
+            study_guide_cont.button("Play Audio Teach", icon = ":material/music_note:")
 else:
     st.info("Extract Text to use Student Hub tools.")
