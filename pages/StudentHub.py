@@ -99,8 +99,8 @@ if "edited_text" in st.session_state:
     empty = st.empty()
     study_guide_button =  empty.button("Create Study Guide", on_click = get_study_guide)
     if study_guide_button:
-        with empty.container(horizontal_alignment = "left") as study_guide_cont:
-            study_guide_cont.download_button("Download as Markdown", file_name = "digiscribe_study_guide.md", data = st.session_state.study_guide, on_click = "ignore")
-            study_guide_cont.button("Play Audio Teach", icon = ":material/music_note:")
+        with empty.container(horizontal_alignment = "left"):
+            st.download_button("Download as Markdown", file_name = "digiscribe_study_guide.md", data = st.session_state.study_guide, on_click = "ignore")
+            st.button("Play Audio Teach", icon = ":material/music_note:")
 else:
     st.info("Extract Text to use Student Hub tools.")
