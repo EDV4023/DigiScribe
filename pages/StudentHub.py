@@ -101,6 +101,6 @@ if "edited_text" in st.session_state:
     if study_guide_button:
         with empty.container(horizontal_alignment = "left"):
             st.download_button("Download as Markdown", file_name = "digiscribe_study_guide.md", data = st.session_state.study_guide, on_click = "ignore")
-            st.button("Play Audio Teach", icon = ":material/music_note:")
+            st.button("Play Audio Teach", icon = ":material/music_note:", on_click = play_audio_teach)
 else:
     st.info("Extract Text to use Student Hub tools.")
