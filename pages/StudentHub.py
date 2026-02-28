@@ -39,6 +39,7 @@ if "edited_text" not in st.session_state and st.session_state.refined_text:
 
 st.image(r"DigiScribe_Logo.png", width = 750)
 st.title("**:blue[Student Hub]**")
+audio_cont = st.container()
 if "edited_text" in st.session_state:
     concise_summary_cont = st.container(border = True)
 
@@ -89,7 +90,7 @@ if "edited_text" in st.session_state:
             st.session_state.audio_teach = response.text
             audio_teach = gTTS(st.session_state.audio_teach, lang = "en", slow = False)
             audio_teach.save("digiscribe_audio_teach.mp3")
-            st.audio("digiscribe_audio_teach.mp3")
+            audio_cont.audio("digiscribe_audio_teach.mp3")
         except:
             st.error("Too many server requests. Try again later.")
             st.stop()
