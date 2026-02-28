@@ -85,7 +85,7 @@ if "edited_text" in st.session_state:
         try:
             response = client.models.generate_content(
             model="gemini-2.0-flash",
-            contents = f"Do not start the response with any formalities, greetings or messages like \"Here is an teacher instructing a student on...\". Provide a summary of the text's main points, vocabulary, and explanations in the format of a teacher instructing one student using simple breakdown, analogies, and step by step guidelines on how to understand the topic. Here is the text to turn into educational lecture format: {st.session_state.study_guide}",
+            contents = f"Do not start the response with any formalities, greetings or messages like \"Here is an teacher instructing a student on...\". Provide a summary of the text's main points, vocabulary, and explanations in the format of a teacher instructing one student using simple breakdown, analogies, and step by step guidelines on how to understand the topic. Avoid markdown formatting since this is going to be inputted into a TTS engine. Here is the text to turn into educational lecture format: {st.session_state.study_guide}",
                 )
             st.session_state.audio_teach = response.text
             audio_teach = gTTS(st.session_state.audio_teach, lang = "en", slow = False)
